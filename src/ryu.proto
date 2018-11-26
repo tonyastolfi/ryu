@@ -1,0 +1,71 @@
+// Ryu.proto - syntax of .ryu files.
+//
+syntax = "proto3";
+
+message RyuRegexReplace {
+  string pattern = 1;
+  string with = 2;
+}
+
+message RyuFlags {
+  oneof directive {
+    string reset = 1;
+    string append = 2;
+    string prepend = 3;
+    RyuRegexReplace replace = 4;
+  }
+}
+
+message RyuLibrary {
+  string name = 1;
+  repeated string src = 2;
+  repeated string hdr = 3;
+  repeated string dependency = 4;
+  repeated RyuFlags compile_flags = 5;
+  repeated RyuFlags link_flags = 6;
+  repeated string include_dir = 7;
+}
+
+message RyuBinary {
+  string name = 1;
+  repeated string src = 2;
+  repeated string dependency = 3;
+  repeated RyuFlags compile_flags = 4;
+  repeated RyuFlags link_flags = 5;
+  repeated string include_dir = 6;  
+}
+
+message RyuTest {
+  string name = 1;
+  repeated string src = 2;
+  repeated string dependency = 3;
+  string filter = 4;
+  repeated RyuFlags compile_flags = 5;
+  repeated RyuFlags link_flags = 6;
+  repeated string include_dir = 7;  
+}
+
+message RyuPackage {
+  string name = 1;
+  string prefix = 2;
+  string include_dir = 3;
+  string bin_dir = 4;
+  string lib_dir = 5;
+}
+
+message RyuConfig {
+  repeated RyuLibrary library = 1;
+  repeated RyuBinary binary = 2;
+  repeated RyuTest test = 3; 
+  
+  repeated RyuPackage dependency = 101;
+  repeated string include = 102;
+}
+
+message RyuPreamble {
+  repeated RyuFlags compile_flags = 1;
+  repeated RyuFlags link_flags = 2;
+  repeated RyuPackage installed = 3;
+  string compile_command = 4;
+  string link_command = 5;
+}

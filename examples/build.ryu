@@ -1,0 +1,18 @@
+# This is an example RYU file.
+#
+
+library {
+  name: "utils"
+  src: "src/string_utils.cc"
+  src: "src/numeric_utils.cc"
+  hdr: "src/utils.h"
+  compile_flags { replace { pattern: "-Werror" with: "" } }
+  compile_flags { append: "-O2" }
+}
+
+test {
+  name: "utils_test"
+  dependency: "utils"
+  src: "src/string_utils_test.cc"
+  src: "src/numeric_utils_test.cc"
+}

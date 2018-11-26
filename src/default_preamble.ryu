@@ -1,0 +1,20 @@
+# This is the default RYU preamble file.
+#
+compile_command: "clang++"
+link_command: "clang++"
+
+compile_flags {
+  reset: "-Wall -Werror -std=c++14 -g"
+}
+
+link_flags {
+  reset: ""
+}
+
+installed {
+  name: "protobuf"
+  prefix: "%PROTOBUF_INSTALL%/"
+  include_dir: "include"
+  bin_dir: "bin"
+  lib_dir: "lib"
+}
